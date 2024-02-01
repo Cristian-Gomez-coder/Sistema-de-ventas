@@ -2,7 +2,7 @@
 
 namespace SistemaVentas.Controllers
 {
-    public class RoleController : Controller
+    public class RolController : Controller
     {
         public IActionResult Index()
         {

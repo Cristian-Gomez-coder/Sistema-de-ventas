@@ -2,7 +2,7 @@
 
 namespace SistemaVentas.Controllers
 {
-    public class CategoryController : Controller
+    public class ArticuloController : Controller
     {
         public IActionResult Index()
         {

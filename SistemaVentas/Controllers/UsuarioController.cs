@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SistemaVentas.Controllers
 {
-    public class UserController : Controller
+    public class UsuarioController : Controller
     {
 
     }
