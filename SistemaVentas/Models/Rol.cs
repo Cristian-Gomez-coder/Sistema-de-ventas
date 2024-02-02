@@ -1,4 +1,6 @@
-﻿namespace SistemaVentas.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SistemaVentas.Models
 {
     public class Rol
     {
@@ -7,6 +9,7 @@
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

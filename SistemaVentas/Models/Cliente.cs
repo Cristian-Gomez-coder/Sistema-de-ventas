@@ -1,4 +1,6 @@
-﻿namespace SistemaVentas.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SistemaVentas.Models
 {
     public class Cliente
     {
@@ -10,6 +12,7 @@
         public string Telefono { get; set; }
         public string Email { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Venta> Compras { get; set; }
 
     }

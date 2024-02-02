@@ -1,12 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaVentas.Models;
+using SistemaVentas.Services;
 
 namespace SistemaVentas.Controllers
 {
-    public class ClienteController : Controller
+    [Route("api/[controller]")]
+    public class ClienteController : ControllerBase
     {
-        public IActionResult Index()
+        IClienteService clienteService;
+
+        public ClienteController(IClienteService service)
         {
-            return View();
+            clienteService = service;
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(clienteService.Get());
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Cliente cliente)
+        {
+            clienteService.Save(cliente);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Cliente cliente)
+        {
+            clienteService.Update(id, cliente);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            clienteService.Delete(id);
+            return Ok();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SistemaVentas.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SistemaVentas.Models
 {
     public class Articulo
     {
@@ -11,6 +13,7 @@
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
 
+        [JsonIgnore]
         public virtual Categoria Categoria { get; set; }
     }
 }

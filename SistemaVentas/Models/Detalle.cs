@@ -1,4 +1,6 @@
-﻿namespace SistemaVentas.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SistemaVentas.Models
 {
     public class Detalle
     {
@@ -9,7 +11,9 @@
         public decimal Precio { get; set; }
         public decimal Descuento { get; set; }
 
+        [JsonIgnore]
         public virtual Articulo Articulo { get; set; }
+        [JsonIgnore]
         public virtual Venta Venta { get; set; }
     }
 }

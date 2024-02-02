@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Text.Json.Serialization;
+using System.Threading;
 
 namespace SistemaVentas.Models
 {
@@ -9,6 +10,7 @@ namespace SistemaVentas.Models
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Articulo> Articulos { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SistemaVentas.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SistemaVentas.Models
 {
     public class Usuario
     {
@@ -13,6 +15,7 @@
         public byte[] Password { get; set; }
         public bool Estado { get; set; }
 
+        [JsonIgnore]
         public virtual Rol Rol { get; set; }
     }
 }
