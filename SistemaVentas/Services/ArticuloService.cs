@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaVentas.Models;
+using SistemaVentas.DTOs;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace SistemaVentas.Services
 {
@@ -14,51 +17,74 @@ namespace SistemaVentas.Services
 
         public IEnumerable<Articulo> Get()
         {
-            return _context.Articulos.Include(a => a.Categoria);
+            return _context.Articulos.Include(c => c.Categoria);
         }
 
-        public async Task Save(Articulo articulo)
+        public async Task<Articulo?> Save(Articulo articulo)
         {
-            _context.Add(articulo);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task Update(int id, Articulo articulo)
-        {
-            var articuloActual = _context.Articulos.Find(id);
-
-            if (articuloActual != null)
+            try
             {
-                articuloActual.IdCategoria = articulo.IdCategoria;
-                articuloActual.Codigo = articulo.Codigo;
-                articuloActual.Nombre = articulo.Nombre;
-                articuloActual.PrecioVenta = articulo.PrecioVenta;
-                articuloActual.Stock = articulo.Stock;
-                articuloActual.Descripcion = articulo.Descripcion;
-                articuloActual.Estado = articulo.Estado;
-
-                await _context.SaveChangesAsync();
+                var categoriaExistente = _context.Categorias.FirstOrDefault(a => a.IdCategoria == articulo.IdCategoria);
+                if (categoriaExistente != null)
+                {
+                    _context.Add(articulo);
+                    await _context.SaveChangesAsync();
+                    return articulo;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al guardar el artículo: {ex.Message}", ex);
             }
         }
 
-        public async Task Delete(int id)
+        public async Task<Articulo?> Update(int id, ArticuloDTO articulo)
         {
-            var articuloActual = _context.Articulos.Find(id);
-
+            var articuloActual = _context.Articulos.FirstOrDefault(a => a.IdArticulo == id);
+            var categoriaExistente = _context.Categorias.FirstOrDefault(a => a.IdCategoria == articulo.IdCategoria);
             if (articuloActual != null)
             {
-                _context.Remove(articuloActual);
+                // Actualizar solo las propiedades no nulas del DTO
+                if (articulo.IdCategoria != null && categoriaExistente != null)
+                    articuloActual.IdCategoria = (int)articulo.IdCategoria;
+                if (articulo.Codigo != null)
+                    articuloActual.Codigo = articulo.Codigo;
+                if (articulo.Nombre != null)
+                    articuloActual.Nombre = articulo.Nombre;
+                if (articulo.PrecioVenta != null)
+                    articuloActual.PrecioVenta = (decimal)articulo.PrecioVenta;
+                if (articulo.Stock != null)
+                    articuloActual.Stock = (int)articulo.Stock;
+                if (articulo.Descripcion != null)
+                    articuloActual.Descripcion = articulo.Descripcion;
+
                 await _context.SaveChangesAsync();
             }
+            return articuloActual;
         }
+
+        public async Task<Articulo?> Delete(int id)
+        {
+            var articuloActual = _context.Articulos.FirstOrDefault(a => a.IdArticulo == id);
+            Console.Write(articuloActual);
+            if (articuloActual != null)
+            {
+                _context.Articulos.Remove(articuloActual);
+                await _context.SaveChangesAsync();
+                
+            }
+           return articuloActual;
+        }
+
     }
 
     public interface IArticuloService
     {
-        IEnumerable<Articulo> Get();
-        Task Save(Articulo articulo);
-        Task Update(int id, Articulo articulo);
-        Task Delete(int id);
+        IEnumerable<Articulo?> Get();
+        Task<Articulo?> Save(Articulo articulo);
+        Task<Articulo?> Update(int id, ArticuloDTO articulo);
+        Task<Articulo?> Delete(int id);
     }
 
 }

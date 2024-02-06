@@ -143,3 +143,5 @@ C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\bin\Debug\net8.0\Swashbuckle.
 C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\obj\Debug\net8.0\SistemaVentas.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\gusta\Desktop\SistemaVentas\SistemaVentas\bin\Debug\net8.0\Microsoft.Net.Http.Headers.dll

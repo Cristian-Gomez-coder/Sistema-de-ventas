@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaVentas.Models;
 using SistemaVentas.Services;
+using SistemaVentas.DTOs;
 
 namespace SistemaVentas.Controllers
 {
@@ -23,22 +24,56 @@ namespace SistemaVentas.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Articulo articulo)
         {
-            articuloService.Save(articulo);
-            return Ok();
+            try
+            {
+                var result = articuloService.Save(articulo);
+                if (result.Result != null)
+                    return Ok();
+                return BadRequest(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al guardar el artículo: {ex.Message}");
+            }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Articulo articulo)
+        public IActionResult Put(int id, [FromBody] ArticuloDTO articulo)
         {
-            articuloService.Update(id, articulo);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = articuloService.Update(id, articulo);
+                if (result.Result != null)
+                    return Ok();
+                return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al actualizar el artículo: {ex.Message}");
+            }
         }
+
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            articuloService.Delete(id);
-            return Ok();
+            try
+            {
+                var result = articuloService.Delete(id);
+                if (result.Result == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al eliminar el artículo: {ex.Message}");
+            }
         }
     }
 

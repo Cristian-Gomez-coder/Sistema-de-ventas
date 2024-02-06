@@ -19,8 +19,14 @@ namespace SistemaVentas.Services
 
         public async Task Save(Categoria categoria)
         {
-            _context.Add(categoria);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Add(categoria);
+                await _context.SaveChangesAsync();
+            }catch (Exception ex)
+            {
+                
+            }
         }
 
         public async Task Update(int id, Categoria categoria)

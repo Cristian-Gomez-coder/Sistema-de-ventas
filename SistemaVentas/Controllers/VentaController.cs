@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaVentas.DTOs;
 using SistemaVentas.Models;
 using SistemaVentas.Services;
 
@@ -26,6 +27,12 @@ namespace SistemaVentas.Controllers
             ventaService.Save(venta);
             return Ok();
         }
+
+        [HttpPost("{idUsuario}")]
+        public IActionResult RegistrarVenta([FromBody] Venta venta) {
+            return Ok();
+        }
+
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Venta venta)

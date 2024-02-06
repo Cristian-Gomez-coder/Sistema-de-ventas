@@ -22,3 +22,4 @@ namespace SistemaVentas.Models
         public virtual Usuario Vendedor { get; set; }
     }
 }
+

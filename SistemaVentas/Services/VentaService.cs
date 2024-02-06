@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SistemaVentas.DTOs;
 using SistemaVentas.Models;
 
 namespace SistemaVentas.Services
